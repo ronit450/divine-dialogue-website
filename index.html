@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Divine Dialogue — A Quiet Place to Ask</title>
+    <meta name="description" content="A private AI spiritual companion grounded in four sacred traditions — the Quran, the Bhagavad Gita, the Guru Granth Sahib, and the Bible." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      button { font-family: inherit; cursor: pointer; }
+      @keyframes dd-ticker {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+      }
+      .dd-ticker-track { animation: dd-ticker 80s linear infinite; }
+      @keyframes dd-pulse { 0%, 100% { opacity: .35 } 50% { opacity: 1 } }
+      .dd-pulse { animation: dd-pulse 1.4s ease-in-out infinite; }
+
+      /* Subtle grain overlay — adds warmth to flat white backgrounds */
+      #root::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 99999;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+        opacity: 0.032;
+        mix-blend-mode: multiply;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

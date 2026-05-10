@@ -6,9 +6,8 @@ import Reveal from '../../components/Reveal.jsx';
 import { useResponsive } from '../../hooks/useResponsive.js';
 
 const FOUNDERS = [
-  { name: 'Aiyana Nair', role: 'Co-founder, CEO', bio: 'Former product lead at a meditation app. Studied comparative religion. Believes the right verse, at the right hour, can change a year.', initials: 'AN' },
-  { name: 'Ibrahim Qureshi', role: 'Co-founder, CTO', bio: "Built private-by-default infra for two consumer apps. Hafiz of the Qurʼan. Cares deeply about local-first compute.", initials: 'IQ' },
-  { name: 'Sister Mae Donovan', role: 'Theological advisor', bio: 'Theologian and translator. Reviews every response for reverence, accuracy, and humility across all four traditions.', initials: 'MD' },
+  { name: 'Ronit Kumar', role: 'Senior AI & ML Engineer', bio: 'Specializes in computer vision and mobile applications. Brings the sacred texts to life through intelligent, on-device experiences.', initials: 'RK' },
+  { name: 'Faraz Ali', role: 'AI Agents & LLM Expert', bio: 'Expert in large language models and autonomous AI agents. Shapes how Divine Chat listens, understands, and responds with reverence.', initials: 'FA' },
 ];
 
 export default function Team() {
@@ -18,7 +17,7 @@ export default function Team() {
   const sectionPadding = isMobile ? '60px 0' : isTablet ? '80px 0' : '120px 0';
   const containerPadding = isMobile ? '0 20px' : '0 40px';
   const headingFontSize = isMobile ? 'clamp(36px, 9vw, 56px)' : 'clamp(48px, 6vw, 84px)';
-  const gridColumns = isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)';
+  const gridColumns = isMobile ? '1fr' : 'repeat(2, 1fr)';
   const cardPadding = isMobile ? 24 : 32;
   const cardMinHeight = isMobile ? 'auto' : 440;
   const portraitAspectRatio = isMobile ? '3/2' : '4/5';

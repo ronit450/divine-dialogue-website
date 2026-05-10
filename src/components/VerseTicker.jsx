@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext.jsx';
 import { RELIGIONS, FONTS } from '../data/religions.jsx';
+import { useResponsive } from '../hooks/useResponsive.js';
 
 const ITEMS = [
   { religionId: 'islam', verse: 'Indeed, with hardship comes ease', cite: "QURʼAN · 94:6" },
@@ -15,29 +16,40 @@ const ITEMS = [
 
 export default function VerseTicker() {
   const { theme } = useApp();
+  const { isMobile } = useResponsive();
   const loop = [...ITEMS, ...ITEMS];
+
+  const verseFontSize = isMobile ? 20 : 26;
+  const itemGap = isMobile ? 10 : 16;
+  const trackGap = isMobile ? 40 : 64;
+  const glyphSize = isMobile ? 16 : 20;
+  const citeFontSize = isMobile ? 9 : 10;
 
   return (
     <div style={{
       borderTop: `1px solid ${theme.line}`,
       borderBottom: `1px solid ${theme.line}`,
       background: theme.bg,
-      overflow: 'hidden', position: 'relative',
+      overflow: 'hidden',
+      position: 'relative',
       padding: '24px 0',
     }}>
       <div className="dd-ticker-track" style={{
-        display: 'flex', gap: 64, whiteSpace: 'nowrap', width: 'max-content',
+        display: 'flex',
+        gap: trackGap,
+        whiteSpace: 'nowrap',
+        width: 'max-content',
       }}>
         {loop.map((it, i) => {
           const r = RELIGIONS[it.religionId];
           return (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
-              <div style={{ color: r.accent }}><r.Glyph size={20} color={r.accent} /></div>
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: itemGap, flexShrink: 0, whiteSpace: 'nowrap' }}>
+              <div style={{ color: r.accent, flexShrink: 0 }}><r.Glyph size={glyphSize} color={r.accent} /></div>
               <div style={{
-                fontFamily: FONTS.display, fontSize: 26, fontStyle: 'italic',
-                fontWeight: 500, color: theme.fg, letterSpacing: -0.3,
+                fontFamily: FONTS.display, fontSize: verseFontSize, fontStyle: 'italic',
+                fontWeight: 500, color: theme.fg, letterSpacing: -0.3, whiteSpace: 'nowrap',
               }}>"{it.verse}"</div>
-              <div style={{ fontFamily: FONTS.mono, fontSize: 10, letterSpacing: 1.8, color: theme.muted }}>{it.cite}</div>
+              <div style={{ fontFamily: FONTS.mono, fontSize: citeFontSize, letterSpacing: 1.8, color: theme.muted, whiteSpace: 'nowrap' }}>{it.cite}</div>
             </div>
           );
         })}

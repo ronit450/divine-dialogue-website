@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext.jsx';
 import { FONTS } from '../../data/religions.jsx';
+import { useResponsive } from '../../hooks/useResponsive.js';
 import Reveal from '../../components/Reveal.jsx';
 
 const TRANSCRIPTS = {
@@ -37,14 +38,24 @@ const D = {
 export default function ChatDemo() {
   const { accent, religionId, religion } = useApp();
   const { Glyph, accentSoft } = religion;
+  const { isMobile, isTablet } = useResponsive();
   const msgs = TRANSCRIPTS[religionId] || TRANSCRIPTS.islam;
 
+  const sectionPadding = isMobile ? '60px 0' : isTablet ? '80px 0' : '120px 0';
+  const containerPadding = isMobile ? '0 20px' : isTablet ? '0 32px' : '0 40px';
+  const headingFontSize = isMobile ? 'clamp(36px, 9vw, 56px)' : 'clamp(48px, 6vw, 80px)';
+  const headingMarginBottom = isMobile ? 40 : 64;
+  const chatBoxPadding = isMobile ? '24px 20px' : '36px 32px';
+  const chatBoxBorderRadius = isMobile ? 20 : 28;
+  const ddFontSize = isMobile ? 18 : 22;
+  const userFontSize = isMobile ? 14 : 15;
+
   return (
-    <section style={{ background: D.bg, padding: '120px 0', borderTop: `1px solid ${D.line}` }}>
-      <div style={{ maxWidth: 1320, margin: '0 auto', padding: '0 40px' }}>
+    <section style={{ background: D.bg, padding: sectionPadding, borderTop: `1px solid ${D.line}` }}>
+      <div style={{ maxWidth: 1320, margin: '0 auto', padding: containerPadding }}>
 
         <Reveal>
-          <div style={{ textAlign: 'center', marginBottom: 64 }}>
+          <div style={{ textAlign: 'center', marginBottom: headingMarginBottom }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 16 }}>
               <div style={{ height: 1, width: 28, background: accent, opacity: 0.6 }}/>
               <div style={{ fontFamily: FONTS.mono, fontSize: 10, letterSpacing: 2.4, color: D.muted }}>
@@ -56,7 +67,7 @@ export default function ChatDemo() {
               fontFamily: FONTS.display,
               fontStyle: 'italic',
               fontWeight: 500,
-              fontSize: 'clamp(48px, 6vw, 80px)',
+              fontSize: headingFontSize,
               letterSpacing: -1.6,
               lineHeight: 1,
               margin: 0,
@@ -73,8 +84,8 @@ export default function ChatDemo() {
             margin: '0 auto',
             background: D.surface,
             border: `1px solid ${D.line}`,
-            borderRadius: 28,
-            padding: '36px 32px',
+            borderRadius: chatBoxBorderRadius,
+            padding: chatBoxPadding,
             display: 'flex',
             flexDirection: 'column',
             gap: 16,
@@ -97,13 +108,13 @@ export default function ChatDemo() {
                 }}>
                   {m.from === 'dd' && (
                     <div style={{ fontFamily: FONTS.mono, fontSize: 9, letterSpacing: 1.6, color: D.muted, marginBottom: 6 }}>
-                      DIVINE DIALOGUE
+                      DIVINE CHAT
                     </div>
                   )}
                   <div style={{
                     fontFamily: m.from === 'me' ? FONTS.ui : FONTS.display,
                     fontStyle: m.from === 'dd' ? 'italic' : 'normal',
-                    fontSize: m.from === 'dd' ? 22 : 15,
+                    fontSize: m.from === 'dd' ? ddFontSize : userFontSize,
                     fontWeight: 500,
                     lineHeight: m.from === 'dd' ? 1.35 : 1.45,
                     letterSpacing: m.from === 'dd' ? -0.2 : 0,

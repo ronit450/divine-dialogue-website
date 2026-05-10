@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext.jsx';
 import { FONTS } from '../../data/religions.jsx';
+import { useResponsive } from '../../hooks/useResponsive.js';
 import SectionLabel from '../../components/SectionLabel.jsx';
 import Reveal from '../../components/Reveal.jsx';
 import IOSDevice from '../../components/ios/IOSDevice.jsx';
@@ -15,25 +16,38 @@ const STEPS = [
 
 export default function HowItWorksSection() {
   const { theme, accent, religion } = useApp();
+  const { isMobile, isTablet } = useResponsive();
+
+  const sectionPadding = isMobile ? '60px 0' : isTablet ? '80px 0' : '120px 0';
+  const containerPadding = isMobile ? '0 20px' : isTablet ? '0 32px' : '0 40px';
+  const headingFontSize = isMobile ? 'clamp(36px, 9vw, 56px)' : 'clamp(48px, 6vw, 84px)';
+  const headingMarginBottom = isMobile ? 40 : 80;
+  const isNarrow = isMobile || isTablet;
+  const gridCols = isNarrow ? '1fr' : '1fr 420px';
+  const stepNumberFontSize = isMobile ? 36 : 48;
+  const stepHeadFontSize = isMobile ? 24 : 32;
+  const stepGridCols = isMobile ? '44px 1fr' : '64px 1fr';
+  const stepGridGap = isMobile ? 20 : 28;
+  const stepPaddingBottom = isMobile ? 24 : 36;
 
   return (
-    <section style={{ background: theme.bg, padding: '120px 0', borderTop: `1px solid ${theme.line}` }}>
-      <div style={{ maxWidth: 1320, margin: '0 auto', padding: '0 40px' }}>
+    <section style={{ background: theme.bg, padding: sectionPadding, borderTop: `1px solid ${theme.line}` }}>
+      <div style={{ maxWidth: 1320, margin: '0 auto', padding: containerPadding }}>
         <Reveal>
           <SectionLabel theme={theme} accent={accent}>HOW IT WORKS</SectionLabel>
-          <h2 style={{ fontFamily: FONTS.display, fontStyle: 'italic', fontWeight: 500, fontSize: 'clamp(48px, 6vw, 84px)', letterSpacing: -1.6, lineHeight: 1, margin: '32px 0 80px', color: theme.fg, maxWidth: 900 }}>
+          <h2 style={{ fontFamily: FONTS.display, fontStyle: 'italic', fontWeight: 500, fontSize: headingFontSize, letterSpacing: -1.6, lineHeight: 1, margin: `32px 0 ${headingMarginBottom}px`, color: theme.fg, maxWidth: 900 }}>
             Three steps,<br/>no rituals required.
           </h2>
         </Reveal>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 420px', gap: 80, alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: gridCols, gap: 80, alignItems: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 36 }}>
             {STEPS.map((s, i) => (
               <Reveal key={i} delay={i * 100}>
-                <div style={{ display: 'grid', gridTemplateColumns: '64px 1fr', gap: 28, alignItems: 'baseline', paddingBottom: 36, borderBottom: i === STEPS.length - 1 ? 'none' : `1px solid ${theme.line}` }}>
-                  <div style={{ fontFamily: FONTS.display, fontSize: 48, fontStyle: 'italic', color: accent, fontWeight: 500, letterSpacing: -1 }}>{s.n}</div>
+                <div style={{ display: 'grid', gridTemplateColumns: stepGridCols, gap: stepGridGap, alignItems: 'baseline', paddingBottom: stepPaddingBottom, borderBottom: i === STEPS.length - 1 ? 'none' : `1px solid ${theme.line}` }}>
+                  <div style={{ fontFamily: FONTS.display, fontSize: stepNumberFontSize, fontStyle: 'italic', color: accent, fontWeight: 500, letterSpacing: -1 }}>{s.n}</div>
                   <div>
-                    <div style={{ fontFamily: FONTS.display, fontStyle: 'italic', fontSize: 32, letterSpacing: -0.5, fontWeight: 500, color: theme.fg, marginBottom: 12 }}>{s.head}</div>
+                    <div style={{ fontFamily: FONTS.display, fontStyle: 'italic', fontSize: stepHeadFontSize, letterSpacing: -0.5, fontWeight: 500, color: theme.fg, marginBottom: 12 }}>{s.head}</div>
                     <div style={{ fontFamily: FONTS.ui, fontSize: 16, lineHeight: 1.55, color: theme.muted, maxWidth: 480 }}>{s.body}</div>
                   </div>
                 </div>
@@ -45,13 +59,15 @@ export default function HowItWorksSection() {
             </Link>
           </div>
 
-          <Reveal>
-            <div style={{ transform: 'scale(0.78) rotate(-2deg)', transformOrigin: 'top center', filter: `drop-shadow(0 40px 80px ${accent}30)` }}>
-              <IOSDevice dark={theme.isDark}>
-                <HomeScreenA theme={theme} religion={religion} />
-              </IOSDevice>
-            </div>
-          </Reveal>
+          {!isNarrow && (
+            <Reveal>
+              <div style={{ transform: 'scale(0.78) rotate(-2deg)', transformOrigin: 'top center', filter: `drop-shadow(0 40px 80px ${accent}30)` }}>
+                <IOSDevice dark={theme.isDark}>
+                  <HomeScreenA theme={theme} religion={religion} />
+                </IOSDevice>
+              </div>
+            </Reveal>
+          )}
         </div>
       </div>
     </section>

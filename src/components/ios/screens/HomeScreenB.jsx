@@ -88,7 +88,7 @@ export default function HomeScreenB({ theme, religion }) {
 
       <div style={{ padding: '10px 18px 10px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 12px 12px 16px', borderRadius: 999, background: theme.surface, border: `1px solid ${theme.line}` }}>
-          <div style={{ flex: 1, fontFamily: FONTS.ui, fontSize: 12, color: theme.muted }}>Ask anything, anonymously…</div>
+          <div style={{ flex: 1, fontFamily: FONTS.ui, fontSize: 12, color: theme.muted }}>Ask anything…</div>
           <div style={{ width: 32, height: 32, borderRadius: '50%', background: accent, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </div>
